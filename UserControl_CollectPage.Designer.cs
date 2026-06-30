@@ -71,7 +71,7 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Name = "UserControl_CollectPage";
-            Size = new Size(953, 749);
+            Size = new Size(1044, 841);
             ResumeLayout(false);
         }
 
