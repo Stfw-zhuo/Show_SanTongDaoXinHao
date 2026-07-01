@@ -37,6 +37,62 @@ namespace Show_SanTongDaoXinHao
             formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             SuspendLayout();
             // 
+            // button1
+            // 
+            button1.Font = new Font("Microsoft YaHei UI", 12F);
+            button1.Location = new Point(16, 268);
+            button1.Name = "button1";
+            button1.Size = new Size(100, 36);
+            button1.TabIndex = 0;
+            button1.Text = "开始采集";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Font = new Font("Microsoft YaHei UI", 12F);
+            button2.Location = new Point(126, 268);
+            button2.Name = "button2";
+            button2.Size = new Size(140, 36);
+            button2.TabIndex = 1;
+            button2.Text = "停止采集并保存";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button3
+            // 
+            button3.Font = new Font("Microsoft YaHei UI", 12F);
+            button3.Location = new Point(276, 268);
+            button3.Name = "button3";
+            button3.Size = new Size(100, 36);
+            button3.TabIndex = 2;
+            button3.Text = "读取记录";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button_connect
+            // 
+            button_connect.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
+            button_connect.Location = new Point(200, 124);
+            button_connect.Name = "button_connect";
+            button_connect.Size = new Size(90, 32);
+            button_connect.TabIndex = 11;
+            button_connect.Text = "连接";
+            button_connect.UseVisualStyleBackColor = true;
+            button_connect.Click += button_connect_Click;
+            // 
+            // button_decode
+            // 
+            button_decode.Enabled = false;
+            button_decode.Font = new Font("Microsoft YaHei UI", 12F);
+            button_decode.Location = new Point(390, 268);
+            button_decode.Name = "button_decode";
+            button_decode.Size = new Size(140, 36);
+            button_decode.TabIndex = 19;
+            button_decode.Text = "进行FFT分析";
+            button_decode.UseVisualStyleBackColor = true;
+            button_decode.Click += button_decode_Click;
+            // 
             // label_title
             // 
             label_title.AutoSize = true;
@@ -44,7 +100,7 @@ namespace Show_SanTongDaoXinHao
             label_title.ForeColor = Color.FromArgb(0, 126, 249);
             label_title.Location = new Point(16, 14);
             label_title.Name = "label_title";
-            label_title.Size = new Size(136, 30);
+            label_title.Size = new Size(145, 30);
             label_title.TabIndex = 3;
             label_title.Text = "数据接收设置";
             // 
@@ -104,20 +160,9 @@ namespace Show_SanTongDaoXinHao
             textBox_port.Font = new Font("Microsoft YaHei UI", 12F);
             textBox_port.Location = new Point(110, 126);
             textBox_port.Name = "textBox_port";
-            textBox_port.Size = new Size(80, 29);
+            textBox_port.Size = new Size(80, 28);
             textBox_port.TabIndex = 9;
             textBox_port.Text = "8080";
-            // 
-            // button_connect
-            // 
-            button_connect.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
-            button_connect.Location = new Point(200, 124);
-            button_connect.Name = "button_connect";
-            button_connect.Size = new Size(90, 32);
-            button_connect.TabIndex = 11;
-            button_connect.Text = "连接";
-            button_connect.UseVisualStyleBackColor = true;
-            button_connect.Click += button_connect_Click;
             // 
             // label_remoteIP
             // 
@@ -126,7 +171,7 @@ namespace Show_SanTongDaoXinHao
             label_remoteIP.ForeColor = Color.White;
             label_remoteIP.Location = new Point(16, 164);
             label_remoteIP.Name = "label_remoteIP";
-            label_remoteIP.Size = new Size(74, 21);
+            label_remoteIP.Size = new Size(73, 21);
             label_remoteIP.TabIndex = 12;
             label_remoteIP.Text = "远程IP：";
             label_remoteIP.Visible = false;
@@ -136,10 +181,21 @@ namespace Show_SanTongDaoXinHao
             textBox_remoteIP.Font = new Font("Microsoft YaHei UI", 12F);
             textBox_remoteIP.Location = new Point(110, 162);
             textBox_remoteIP.Name = "textBox_remoteIP";
-            textBox_remoteIP.Size = new Size(180, 29);
+            textBox_remoteIP.Size = new Size(180, 28);
             textBox_remoteIP.TabIndex = 13;
             textBox_remoteIP.Text = "192.168.1.110";
             textBox_remoteIP.Visible = false;
+            // 
+            // label_status
+            // 
+            label_status.AutoSize = true;
+            label_status.Font = new Font("Microsoft YaHei UI", 13F, FontStyle.Bold);
+            label_status.ForeColor = Color.Gray;
+            label_status.Location = new Point(16, 236);
+            label_status.Name = "label_status";
+            label_status.Size = new Size(65, 25);
+            label_status.TabIndex = 10;
+            label_status.Text = "● 空闲";
             // 
             // label_mode
             // 
@@ -170,21 +226,10 @@ namespace Show_SanTongDaoXinHao
             checkBox_autoRefresh.ForeColor = Color.White;
             checkBox_autoRefresh.Location = new Point(270, 196);
             checkBox_autoRefresh.Name = "checkBox_autoRefresh";
-            checkBox_autoRefresh.Size = new Size(110, 25);
+            checkBox_autoRefresh.Size = new Size(93, 25);
             checkBox_autoRefresh.TabIndex = 16;
             checkBox_autoRefresh.Text = "实时绘图";
             checkBox_autoRefresh.UseVisualStyleBackColor = true;
-            // 
-            // label_status
-            // 
-            label_status.AutoSize = true;
-            label_status.Font = new Font("Microsoft YaHei UI", 13F, FontStyle.Bold);
-            label_status.ForeColor = Color.Gray;
-            label_status.Location = new Point(16, 236);
-            label_status.Name = "label_status";
-            label_status.Size = new Size(82, 25);
-            label_status.TabIndex = 10;
-            label_status.Text = "● 空闲";
             // 
             // label_rawFile
             // 
@@ -193,54 +238,9 @@ namespace Show_SanTongDaoXinHao
             label_rawFile.ForeColor = Color.LightGray;
             label_rawFile.Location = new Point(16, 310);
             label_rawFile.Name = "label_rawFile";
-            label_rawFile.Size = new Size(300, 17);
+            label_rawFile.Size = new Size(92, 17);
             label_rawFile.TabIndex = 18;
             label_rawFile.Text = "原始包文件：无";
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Microsoft YaHei UI", 12F);
-            button1.Location = new Point(16, 268);
-            button1.Name = "button1";
-            button1.Size = new Size(100, 36);
-            button1.TabIndex = 0;
-            button1.Text = "开始采集";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // button2
-            // 
-            button2.Font = new Font("Microsoft YaHei UI", 12F);
-            button2.Location = new Point(126, 268);
-            button2.Name = "button2";
-            button2.Size = new Size(140, 36);
-            button2.TabIndex = 1;
-            button2.Text = "停止采集并保存";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // button3
-            // 
-            button3.Font = new Font("Microsoft YaHei UI", 12F);
-            button3.Location = new Point(276, 268);
-            button3.Name = "button3";
-            button3.Size = new Size(100, 36);
-            button3.TabIndex = 2;
-            button3.Text = "读取TXT";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // button_decode
-            // 
-            button_decode.Enabled = false;
-            button_decode.Font = new Font("Microsoft YaHei UI", 12F);
-            button_decode.Location = new Point(390, 268);
-            button_decode.Name = "button_decode";
-            button_decode.Size = new Size(140, 36);
-            button_decode.TabIndex = 19;
-            button_decode.Text = "解码并绘图";
-            button_decode.UseVisualStyleBackColor = true;
-            button_decode.Click += button_decode_Click;
             // 
             // formsPlot1
             // 
@@ -275,7 +275,7 @@ namespace Show_SanTongDaoXinHao
             Controls.Add(label_protocol);
             Controls.Add(label_title);
             Name = "UserControl_CollectPage";
-            Size = new Size(740, 680);
+            Size = new Size(1080, 720);
             ResumeLayout(false);
             PerformLayout();
         }

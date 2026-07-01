@@ -173,23 +173,78 @@ namespace Show_SanTongDaoXinHao
         public static IReadOnlyList<short> GetChannel3() { lock (channel1) return channel3.ToList(); }
         public static int GetDataCount() { lock (channel1) return channel1.Count; }
 
+        //========== W5500 直接解码（不含帧缓冲区，逐包写入 channel）==========
+        /// <summary>解析单个 W5500 包并直接追加到 channel，适用于离线解码</summary>
+        public static int AppendW5500PacketDirect(byte[] packet)
+        {
+            if (packet == null || packet.Length < 12) return 0;
+
+            // 正式协议: seq(2B BE) | flags(1B) | sample_cnt(1B) | reserved(2B)
+            byte flags = packet[2];
+            byte half = (byte)((flags >> 6) & 0x03);
+            byte seg  = (byte)((flags >> 4) & 0x03);
+            byte sampleCount = packet[3];
+
+            if (half > 1 || seg > 2) return 0;
+            if (sampleCount < 10 || sampleCount > 180) return 0;
+
+            int expectedLen = 6 + sampleCount * 6;
+            if (packet.Length < expectedLen) return 0;
+
+            // offset 固定计算
+            int offset = seg switch
+            {
+                0 => 0,
+                1 => 170,
+                2 => 340,
+                _ => -1
+            };
+            if (offset < 0 || offset + sampleCount > FRAME_SAMPLE_COUNT) return 0;
+
+            lock (channel1)
+            {
+                for (int i = 0; i < sampleCount; i++)
+                {
+                    int pos = 6 + i * 6;
+                    short ch1 = ReadBigEndianInt16(packet, pos);
+                    short ch2 = ReadBigEndianInt16(packet, pos + 2);
+                    short ch3 = ReadBigEndianInt16(packet, pos + 4);
+                    channel1.Add(ch1);
+                    channel2.Add(ch2);
+                    channel3.Add(ch3);
+                }
+            }
+            return sampleCount;
+        }
+
         //========== W5500 协议解析 (大端 int16) ==========
         public static bool AppendW5500Packet(byte[] packet)
         {
             if (packet == null || packet.Length < 12) return false;
 
-            // 大端解析包头
-            // V2.3: seq(2B BE) | half(1B) | seg(1B) | offset(2B BE)
-            ushort seqBig        = (ushort)((packet[0] << 8) | packet[1]);
-            byte   half          = packet[2];
-            byte   seg           = packet[3];
-            ushort offsetBig     = (ushort)((packet[4] << 8) | packet[5]);
+            // 正式协议: seq(2B BE) | flags(1B) | sample_cnt(1B) | reserved(2B)
+            ushort seqBig = (ushort)((packet[0] << 8) | packet[1]);
+            byte flags = packet[2];
+            byte half = (byte)((flags >> 6) & 0x03);
+            byte seg  = (byte)((flags >> 4) & 0x03);
+            byte sampleCount = packet[3];
 
             if (half > 1 || seg > 2) return false;
+            if (sampleCount < 10 || sampleCount > 180) return false;
 
-            int sampleCount = (packet.Length - 6) / 6;
-            if (sampleCount <= 0) return false;
-            if (offsetBig + sampleCount > FRAME_SAMPLE_COUNT) return false;
+            // 校验包长
+            int expectedLen = 6 + sampleCount * 6;
+            if (packet.Length < expectedLen) return false;
+
+            // offset 固定计算
+            int offset = seg switch
+            {
+                0 => 0,
+                1 => 170,
+                2 => 340,
+                _ => -1
+            };
+            if (offset < 0 || offset + sampleCount > FRAME_SAMPLE_COUNT) return false;
 
             lock (channel1)
             {
@@ -200,7 +255,7 @@ namespace Show_SanTongDaoXinHao
                     short ch2 = ReadBigEndianInt16(packet, pos + 2);
                     short ch3 = ReadBigEndianInt16(packet, pos + 4);
 
-                    int idx = offsetBig + i;
+                    int idx = offset + i;
                     frameBuf[half][seg][idx].Set(ch1, ch2, ch3);
                     segReceived[half][seg][idx] = true;
                 }
