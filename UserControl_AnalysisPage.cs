@@ -1,4 +1,4 @@
-﻿using ScottPlot.Plottables;
+using ScottPlot.Plottables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -357,6 +357,23 @@ namespace Show_SanTongDaoXinHao
         private void button_FFT_Click(object sender, EventArgs e)
         {
             MessageBox.Show("FFT分析将在下一版本实现。");
+        }
+
+        //========================================================
+        // 实时刷新数据
+        //========================================================
+        private void button_refresh_Click(object sender, EventArgs e)
+        {
+            if (isPlaying)
+                StopPlay();
+
+            if (!PrepareData())
+                return;
+
+            currentIndex = ch1.Count;
+            DrawCurrentWave();
+            UpdateStatistics();
+            button_FFT.Enabled = true;
         }
 
         //========================================================
