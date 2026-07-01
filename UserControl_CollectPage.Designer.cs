@@ -19,6 +19,7 @@ namespace Show_SanTongDaoXinHao
             button2 = new Button();
             button3 = new Button();
             button_connect = new Button();
+            button_decode = new Button();
             label_title = new Label();
             label_protocol = new Label();
             comboBox_protocol = new ComboBox();
@@ -32,6 +33,7 @@ namespace Show_SanTongDaoXinHao
             label_mode = new Label();
             comboBox_mode = new ComboBox();
             checkBox_autoRefresh = new CheckBox();
+            label_rawFile = new Label();
             formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             SuspendLayout();
             // 
@@ -184,10 +186,21 @@ namespace Show_SanTongDaoXinHao
             label_status.TabIndex = 10;
             label_status.Text = "● 空闲";
             // 
+            // label_rawFile
+            // 
+            label_rawFile.AutoSize = true;
+            label_rawFile.Font = new Font("Microsoft YaHei UI", 9F);
+            label_rawFile.ForeColor = Color.LightGray;
+            label_rawFile.Location = new Point(16, 310);
+            label_rawFile.Name = "label_rawFile";
+            label_rawFile.Size = new Size(300, 17);
+            label_rawFile.TabIndex = 18;
+            label_rawFile.Text = "原始包文件：无";
+            // 
             // button1
             // 
             button1.Font = new Font("Microsoft YaHei UI", 12F);
-            button1.Location = new Point(16, 270);
+            button1.Location = new Point(16, 268);
             button1.Name = "button1";
             button1.Size = new Size(100, 36);
             button1.TabIndex = 0;
@@ -198,7 +211,7 @@ namespace Show_SanTongDaoXinHao
             // button2
             // 
             button2.Font = new Font("Microsoft YaHei UI", 12F);
-            button2.Location = new Point(126, 270);
+            button2.Location = new Point(126, 268);
             button2.Name = "button2";
             button2.Size = new Size(140, 36);
             button2.TabIndex = 1;
@@ -209,7 +222,7 @@ namespace Show_SanTongDaoXinHao
             // button3
             // 
             button3.Font = new Font("Microsoft YaHei UI", 12F);
-            button3.Location = new Point(276, 270);
+            button3.Location = new Point(276, 268);
             button3.Name = "button3";
             button3.Size = new Size(100, 36);
             button3.TabIndex = 2;
@@ -217,11 +230,23 @@ namespace Show_SanTongDaoXinHao
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // button_decode
+            // 
+            button_decode.Enabled = false;
+            button_decode.Font = new Font("Microsoft YaHei UI", 12F);
+            button_decode.Location = new Point(390, 268);
+            button_decode.Name = "button_decode";
+            button_decode.Size = new Size(140, 36);
+            button_decode.TabIndex = 19;
+            button_decode.Text = "解码并绘图";
+            button_decode.UseVisualStyleBackColor = true;
+            button_decode.Click += button_decode_Click;
+            // 
             // formsPlot1
             // 
-            formsPlot1.Location = new Point(16, 320);
+            formsPlot1.Location = new Point(16, 340);
             formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(700, 340);
+            formsPlot1.Size = new Size(700, 320);
             formsPlot1.TabIndex = 17;
             // 
             // UserControl_CollectPage
@@ -229,6 +254,8 @@ namespace Show_SanTongDaoXinHao
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(46, 51, 73);
+            Controls.Add(label_rawFile);
+            Controls.Add(button_decode);
             Controls.Add(formsPlot1);
             Controls.Add(checkBox_autoRefresh);
             Controls.Add(comboBox_mode);
@@ -257,6 +284,7 @@ namespace Show_SanTongDaoXinHao
         private Button button2;
         private Button button3;
         private Button button_connect;
+        private Button button_decode;
         private Label label_title;
         private Label label_protocol;
         private ComboBox comboBox_protocol;
@@ -270,6 +298,7 @@ namespace Show_SanTongDaoXinHao
         private Label label_mode;
         private ComboBox comboBox_mode;
         private CheckBox checkBox_autoRefresh;
+        private Label label_rawFile;
         private ScottPlot.WinForms.FormsPlot formsPlot1;
     }
 }
